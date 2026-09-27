@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Business Name] Auto Lab | Ultra-Premium Car Detailing & Ceramic Studio</title>
+  <meta name="description" content="Experience master-grade automotive detailing, multi-stage paint correction, and 9H ceramic coatings at [Business Name]. Your car deserves a fresh start.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Water & Wipe Scroll Canvas FX Overlay (Non-blocking, GPU Accelerated) -->
+  <canvas id="scroll-fx-canvas" class="scroll-canvas" aria-hidden="true"></canvas>
+
+  <!-- Specular Gloss Gleam Sweep Layer -->
+  <div id="gloss-sweep" class="gloss-sweep-overlay" aria-hidden="true"></div>
+
+  <!-- Microfiber Wipe Streak Layer -->
+  <div id="wipe-streak" class="wipe-streak-overlay" aria-hidden="true"></div>
+
+  <!-- Water Drop Splash Screen Layer -->
+  <div id="water-ripple-layer" class="water-ripple-overlay" aria-hidden="true"></div>
+
+  <!-- Header Navigation -->
+  <header class="site-header" id="navbar">
+    <div class="header-container">
+      <a href="#hero" class="brand-logo" id="brand-logo-link">
+        <div class="logo-icon-wrap">
+          <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d2ff"/>
+                <stop offset="50%" stop-color="#3a86ff"/>
+                <stop offset="100%" stop-color="#8338ec"/>
+              </linearGradient>
+              <linearGradient id="sheen-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M20 3C20 3 6 18.5 6 26C6 33.732 12.268 40 20 40C27.732 40 34 33.732 34 26C34 18.5 20 3 20 3Z" fill="url(#logo-grad)"/>
+            <path d="M20 7C20 7 9.5 19 9.5 25C9.5 30.5 14 34 19 34.5C14.5 33 13 28 13.5 24C14.2 18.5 20 7 20 7Z" fill="url(#sheen-grad)"/>
+            <circle cx="28" cy="12" r="2.5" fill="#00f0ff" opacity="0.9"/>
+            <circle cx="32" cy="18" r="1.5" fill="#ffffff" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title"><span class="highlight">[BUSINESS NAME]</span> AUTO LAB</span>
+          <span class="brand-sub">PRESTIGE DETAILING STUDIO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="main-nav" id="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="#services" class="nav-link" id="nav-services">Services</a></li>
+          <li><a href="#transformation" class="nav-link" id="nav-transform">Before & After</a></li>
+          <li><a href="#experience" class="nav-link" id="nav-experience">Experience</a></li>
+          <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+          <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header CTAs -->
+      <div class="header-actions">
+        <!-- Interactive FX Indicator & Toggle -->
+        <button id="fx-mode-btn" class="fx-badge-btn" title="Toggle Hydro/Buff FX intensity">
+          <span class="fx-dot"></span>
+          <span class="fx-label" id="fx-status-text">FX: Hydro / Buff Active</span>
+        </button>
+
+        <!-- Detailing Sensory Sound Toggle -->
+        <button id="audio-toggle-btn" class="icon-toggle-btn" title="Toggle Wash & Polish Ambience" aria-label="Toggle Wash and Polish Sound Effects">
+          <svg class="audio-icon muted" id="audio-icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+          <svg class="audio-icon unmuted hidden" id="audio-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span class="sound-wave-bars">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <a href="#contact" class="btn btn-primary btn-sm book-btn-header" id="header-book-btn">
+          <span>Book Now</span>
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none">
+            <path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="hamburger-btn" id="mobile-toggle" aria-label="Open Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Nav -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero" class="mobile-link">Home</a></li>
+        <li><a href="#services" class="mobile-link">Services & Pricing</a></li>
+        <li><a href="#transformation" class="mobile-link">Before & After</a></li>
+        <li><a href="#experience" class="mobile-link">The Process</a></li>
+        <li><a href="#about" class="mobile-link">About Us</a></li>
+        <li><a href="#contact" class="mobile-link">Book Detailing</a></li>
+      </ul>
+      <div class="mobile-drawer-contact">
+        <a href="tel:5557283382" class="drawer-phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (555) 728-3382
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-background-wrapper">
+        <img src="assets/hero.jpg" alt="Exotic supercar gleaming in modern detailing studio with hexagonal lighting" class="hero-bg-img" id="hero-img">
+        <div class="hero-vignette"></div>
+        <div class="hero-specular-glow"></div>
+        <div class="hex-grid-overlay"></div>
+      </div>
+
+      <div class="hero-content-container">
+        <!-- Prestige Badge -->
+        <div class="hero-badge animate-fade-in">
+          <span class="badge-pulse"></span>
+          <span class="badge-text">MASTER DETAILERS &amp; CERAMIC CERTIFIED</span>
+          <span class="badge-divider"></span>
+          <span class="badge-accent">EST. 2018</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="hero-title animate-slide-up">
+          Your Car Deserves <br>
+          <span class="gradient-text gloss-shine">A Fresh Start.</span>
+        </h1>
+
+        <!-- Subtitle / Tagline -->
+        <p class="hero-subtitle animate-slide-up-delay">
+          Precision paint correction, active foam decontamination, and bespoke 9H ceramic glass protection. We obsess over every millimeter to resurrect showroom mirror brilliance.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-cta-group animate-slide-up-delay-2">
+          <a href="#contact" class="btn btn-primary btn-glow" id="hero-book-btn">
+            <span class="btn-ripple"></span>
+            <span class="btn-text">Book Detailing Session</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none">
+              <path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <a href="#transformation" class="btn btn-secondary glass-btn" id="hero-explore-btn">
+            <svg class="play-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+            </svg>
+            <span>See Transformation</span>
+          </a>
+        </div>
+
+        <!-- Interactive Scroll Cue & Signature Feature Prompt -->
+        <div class="hero-scroll-cue" id="scroll-prompt">
+          <div class="scroll-cue-pill">
+            <div class="mouse-icon">
+              <div class="wheel"></div>
+            </div>
+            <div class="scroll-text-track">
+              <span class="scroll-action-text">Scroll Down to <strong>Shower / Rinse</strong> &bull; Scroll Up to <strong>Buff &amp; Polish</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="hero-stats-row animate-fade-in-delayed">
+          <div class="stat-item">
+            <div class="stat-number">4,800+</div>
+            <div class="stat-label">Exotics &amp; Daily Drivers Restored</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">9H+</div>
+            <div class="stat-label">Aerospace-Grade Ceramic Coatings</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Hand-Washed Swirl-Free Guarantee</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-number">5.0 ★</div>
+            <div class="stat-label">Over 450 Verified 5-Star Reviews</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE INTERACTION PROMPT BAR -->
+    <aside class="live-scroll-indicator" id="live-scroll-indicator" aria-live="polite">
+      <div class="indicator-inner">
+        <div class="fx-current-icon" id="fx-icon-display">
+          <!-- Icon will alternate dynamically between water drop and microfiber towel -->
+          <svg class="drop-icon active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+          </svg>
+        </div>
+        <div class="fx-current-text">
+          <span class="fx-label-sub">Scroll Physics Reactive</span>
+          <span class="fx-label-main" id="fx-live-caption">Ready &bull; Scroll to Activate</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- BEFORE / AFTER INTERACTIVE TRANSFORMATION SECTION -->
+    <section class="transformation-section" id="transformation">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <div class="section-badge">MIRROR TRANSFORMATION</div>
+          <h2 class="section-title">Dirty to <span class="gradient-text">Flawless Brilliance</span></h2>
+          <p class="section-subtitle">
+            Drag the interactive slider below to see how our multi-stage decontamination and ceramic gloss bath strips road grime, mud, and oxidation to uncover pure factory reflection.
+          </p>
+        </div>
+
+        <!-- Interactive Comparison Slider Component -->
+        <div class="slider-wrapper">
+          <div class="comparison-card" id="comparison-card">
+            
+            <!-- Clean / After Image (Underneath) -->
+            <div class="image-layer clean-layer">
+              <img src="assets/after-clean.jpg" alt="Detailed clean Porsche GT3 RS with deep mirror ceramic reflection" class="slider-image">
+              <div class="state-pill after-pill">
+                <span class="dot-green"></span>
+                <span>AFTER: Ceramic Mirror Finish</span>
+              </div>
+            </div>
+
+            <!-- Dirty / Before Image (Clipped on top) -->
+            <div class="image-layer dirty-layer" id="dirty-clip-layer">
+              <img src="assets/before-dirty.jpg" alt="Muddy dirty Porsche GT3 RS caked in dried road grime and water spots" class="slider-image">
+              <div class="state-pill before-pill">
+                <span class="dot-amber"></span>
+                <span>BEFORE: Grime &amp; Road Dirt</span>
+              </div>
+            </div>
+
+            <!-- Slider Divider Line & Draggable Handle -->
+            <div class="slider-divider" id="slider-divider">
+              <div class="slider-handle" id="slider-handle" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Before and after car comparison slider" tabindex="0">
+                <div class="handle-arrows">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+                <div class="handle-glow"></div>
+              </div>
+            </div>
+
+            <!-- Interactive Hint Overlay (fades out on interaction) -->
+            <div class="drag-hint" id="drag-hint">
+              <span>← Drag slider or swipe to wipe →</span>
+            </div>
+
+          </div>
+
+          <!-- Transformation Quick Feature Bullets -->
+          <div class="transformation-details-grid">
+            <div class="trans-feature-card">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+              </div>
+              <div class="trans-feature-info">
+                <h4>99.8% Swirl &amp; Scratch Removal</h4>
+                <p>Dual-action micro-abrasive polish refines clear coat without compromising paint thickness.</p>
+              </div>
+            </div>
+
+            <div class="trans-feature-card">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+              </div>
+              <div class="trans-feature-info">
+                <h4>Extreme Hydrophobic Beading</h4>
+                <p>Water, mud, and corrosive road salts bead instantly and roll off at driving speeds above 30 mph.</p>
+              </div>
+            </div>
+
+            <div class="trans-feature-card">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <div class="trans-feature-info">
+                <h4>Deep Liquid-Wet Optical Depth</h4>
+                <p>Ceramic matrix provides high refractive index candy gloss that lasts up to 5 continuous years.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES & PRICING SECTION -->
+    <section class="services-section" id="services">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-badge">ARTISAN DETAILING PACKAGES</div>
+          <h2 class="section-title">Engineered to <span class="gradient-text">Perfection</span></h2>
+          <p class="section-subtitle">
+            Every vehicle receives dedicated one-on-one attention using pH-neutral chemicals, deionized pure water, and ultra-soft microfiber media. Choose a treatment below or bundle for comprehensive care.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          
+          <!-- Service 1: Exterior Wash & Decontamination -->
+          <article class="service-card glass-panel" data-service-id="exterior-wash" data-price="89">
+            <div class="service-image-box">
+              <img src="assets/service-wash.jpg" alt="Snow foam cannon exterior wash" class="service-img" loading="lazy">
+              <div class="service-badge-pill">POPULAR REFRESH</div>
+              <div class="service-img-overlay"></div>
+            </div>
+            <div class="service-body">
+              <div class="service-meta">
+                <h3 class="service-name">Exterior Wash &amp; Decon</h3>
+                <div class="service-pricing">
+                  <span class="price-from">From</span>
+                  <span class="price-value">$89</span>
+                </div>
+              </div>
+              <p class="service-desc">
+                High-lubricity pH-neutral snow foam bath, dual-bucket scratch-free hand contact wash, chemical iron fallout removal, wheel face &amp; barrel deep clean, and streak-free warm filtered air blow dry.
+              </p>
+              <ul class="service-features-list">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Thick velvet snow foam bath &amp; bug strip</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Acid-free rim and brake caliper scrub</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Silica spray sealant gloss protection (30-day)</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Satin no-sling tire conditioner</li>
+              </ul>
+              <div class="service-footer">
+                <button class="btn btn-outline select-service-btn" data-target-service="Exterior Wash & Decon ($89)">
+                  Select Service
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Service 2: Interior Precision Detailing -->
+          <article class="service-card glass-panel" data-service-id="interior-detail" data-price="149">
+            <div class="service-image-box">
+              <img src="assets/service-interior.jpg" alt="Pristine leather interior cabin detailing" class="service-img" loading="lazy">
+              <div class="service-badge-pill">DEEP HYGIENE</div>
+              <div class="service-img-overlay"></div>
+            </div>
+            <div class="service-body">
+              <div class="service-meta">
+                <h3 class="service-name">Interior Precision Detailing</h3>
+                <div class="service-pricing">
+                  <span class="price-from">From</span>
+                  <span class="price-value">$149</span>
+                </div>
+              </div>
+              <p class="service-desc">
+                Hospital-grade 220°F dry steam sanitization, high-suction deep crevice vacuuming, heated shampoo extraction for carpet fibers, and bespoke matte leather feeding with UV sunblock barrier.
+              </p>
+              <ul class="service-features-list">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Heated extractor carpet &amp; mat stain removal</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Leather cleaner &amp; conditioning nourishment</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Ac vent &amp; dashboard brush sterilization</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Crystal clear optical glass wipe &amp; odor eliminate</li>
+              </ul>
+              <div class="service-footer">
+                <button class="btn btn-outline select-service-btn" data-target-service="Interior Precision Detailing ($149)">
+                  Select Service
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Service 3: Waxing & Ceramic Coating (Flagship) -->
+          <article class="service-card glass-panel featured-service" data-service-id="ceramic-coating" data-price="499">
+            <div class="service-image-box">
+              <img src="assets/service-ceramic.jpg" alt="Ceramic coating water beading macro shot" class="service-img" loading="lazy">
+              <div class="service-badge-pill gold-badge">FLAGSHIP PROTECTION</div>
+              <div class="service-img-overlay"></div>
+            </div>
+            <div class="service-body">
+              <div class="service-meta">
+                <h3 class="service-name">Waxing &amp; Ceramic Coating</h3>
+                <div class="service-pricing">
+                  <span class="price-from">From</span>
+                  <span class="price-value">$499</span>
+                </div>
+              </div>
+              <p class="service-desc">
+                Multi-stage rotary and dual-action paint correction to erase swirl marks and micro-marring, followed by an aerospace-grade 9H SiO2 ceramic liquid glass shield bonded directly to your clear coat.
+              </p>
+              <ul class="service-features-list">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 2-Stage machine paint correction buffing</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> 9H Hardness ceramic coating with 3-5 yr warranty</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Super-hydrophobic water &amp; chemical repelling</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Infrared heat lamp curing for rock-solid bonding</li>
+              </ul>
+              <div class="service-footer">
+                <button class="btn btn-primary select-service-btn" data-target-service="Waxing & Ceramic Coating ($499)">
+                  Select Service
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Service 4: Engine Bay Cleaning -->
+          <article class="service-card glass-panel" data-service-id="engine-bay" data-price="119">
+            <div class="service-image-box">
+              <img src="assets/service-engine.jpg" alt="Immaculate carbon fiber sports car engine bay" class="service-img" loading="lazy">
+              <div class="service-badge-pill">UNDER THE HOOD</div>
+              <div class="service-img-overlay"></div>
+            </div>
+            <div class="service-body">
+              <div class="service-meta">
+                <h3 class="service-name">Engine Bay Cleaning</h3>
+                <div class="service-pricing">
+                  <span class="price-from">From</span>
+                  <span class="price-value">$119</span>
+                </div>
+              </div>
+              <p class="service-desc">
+                Safe delicate low-moisture steam degreasing of oil, grime, and debris. Sensitive electronics and intake are sealed, followed by factory-fresh non-greasy satin dressing on all hoses and trim.
+              </p>
+              <ul class="service-features-list">
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Sensitive alternator &amp; fuse box protective wrap</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Biodegradable citrus grease breakdown</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Dry vapor blast into deep manifolds &amp; crevices</li>
+                <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Non-conductive anti-static engine dress finish</li>
+              </ul>
+              <div class="service-footer">
+                <button class="btn btn-outline select-service-btn" data-target-service="Engine Bay Cleaning ($119)">
+                  Select Service
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Custom Package Callout Banner -->
+        <div class="custom-package-banner glass-panel">
+          <div class="banner-content">
+            <div class="banner-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <div class="banner-text">
+              <h3>Need a Bespoke Full Concierge Overhaul?</h3>
+              <p>Combine all 4 treatments for our Signature Obsidian Connoisseur Package &amp; save 20%. Includes complimentary mobile pickup and drop-off.</p>
+            </div>
+          </div>
+          <a href="#contact" class="btn btn-primary" id="bundle-book-btn">Build Custom Bundle</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE EXPERIENCE / 4-STEP PROTOCOL -->
+    <section class="experience-section" id="experience">
+      <div class="section-container">
+        <div class="section-header text-center">
+          <div class="section-badge">THE OBSIDIAN STANDARD</div>
+          <h2 class="section-title">The Anatomy of a <span class="gradient-text">Master Detail</span></h2>
+          <p class="section-subtitle">
+            We reject rushed automated washes that scratch paint. Our certified craftsmen follow an uncompromising multi-stage protocol.
+          </p>
+        </div>
+
+        <div class="protocol-timeline">
+          <!-- Step 1 -->
+          <div class="protocol-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Surface Decontamination</h4>
+              <p>Clay bar extraction strips embedded brake dust, industrial rail fallout, and tree sap that ordinary washing cannot touch.</p>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="protocol-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Digital Depth Measurement</h4>
+              <p>Electromagnetic ultrasonic gauges measure clear coat thickness across all body panels to ensure 100% safe machine polishing.</p>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="protocol-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Jeweling &amp; Compound Buff</h4>
+              <p>Precision micro-finishing removes haze and holograms, restoring absolute optical clarity and light reflectivity.</p>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div class="protocol-step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h4>Nano-Shield Seal &amp; Cure</h4>
+              <p>Ceramic layers bond chemically to clear coat pores, forming a glass-hard hydrophobic barrier tested against UV, acid, and grime.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+      <div class="section-container">
+        <div class="about-grid">
+          
+          <div class="about-image-column">
+            <div class="about-image-wrapper">
+              <img src="assets/hero.jpg" alt="Detailing studio master craftsmanship" class="about-main-img">
+              <div class="about-overlay-card glass-panel">
+                <div class="stat-highlight">
+                  <span class="highlight-num">100%</span>
+                  <span class="highlight-label">Handcrafted Precision</span>
+                </div>
+                <p class="highlight-desc">Zero spinning brushes. Zero harsh acid washes. Only bespoke artisanal care.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-content-column">
+            <div class="section-badge">ABOUT OUR STUDIO</div>
+            <h2 class="about-title">
+              Obsessed with Perfection. <br>
+              <span class="gradient-text">Dedicated to the Craft.</span>
+            </h2>
+
+            <p class="about-lead">
+              At <strong>[Business Name]</strong>, we believe every automobile is a masterpiece of design and engineering. Yet every day, sunlight, salt, grime, and acid rain strip away that factory magic.
+            </p>
+
+            <p class="about-body">
+              Founded by lifelong automotive enthusiasts, our studio was built on a single uncompromising rule: <em>treat every customer’s car as if it were destined for the Pebble Beach Concours d'Elegance</em>. From daily commuters to exotic collector supercars, we pour hours of meticulous care into cleaning seams, conditioning leather, and leveling paint.
+            </p>
+
+            <div class="about-values-grid">
+              <div class="value-item">
+                <div class="value-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                  <h5>Insured &amp; Certified</h5>
+                  <p>Certified master installers backed by $2M comprehensive garage liability insurance.</p>
+                </div>
+              </div>
+
+              <div class="value-item">
+                <div class="value-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <h5>Studio &amp; Mobile Units</h5>
+                  <p>Visit our climate-controlled studio bay or book our self-contained mobile detail van to your driveway.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-quote-box">
+              <p>"The feeling of driving away in a vehicle that looks cleaner and glossier than the day it left the showroom floor is unmatched. That’s the feeling we create every single day."</p>
+              <div class="quote-author">
+                <span class="author-name">— Master Detailer &amp; Founder</span>
+                <span class="author-role">[Business Name] Auto Lab</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & BOOKING SECTION -->
+    <section class="booking-section" id="contact">
+      <div class="section-container">
+        
+        <div class="section-header text-center">
+          <div class="section-badge">EASY ONLINE RESERVATION</div>
+          <h2 class="section-title">Schedule Your <span class="gradient-text">Transformation</span></h2>
+          <p class="section-subtitle">
+            Reserve your studio appointment or mobile detailing slot. Select your package, pick your preferred date, and our detail manager will confirm within 2 hours.
+          </p>
+        </div>
+
+        <div class="booking-grid">
+          
+          <!-- Booking Form Card -->
+          <div class="booking-form-card glass-panel">
+            <form id="detailing-booking-form" class="booking-form" novalidate>
+              
+              <!-- Form Progress Header -->
+              <div class="form-header">
+                <h3>Vehicle &amp; Appointment Details</h3>
+                <span class="form-tag">Quick 2-Minute Request</span>
+              </div>
+
+              <!-- Step 1: Vehicle Size -->
+              <div class="form-group">
+                <label class="form-label">1. Select Vehicle Type</label>
+                <div class="vehicle-type-selector" id="vehicle-type-group">
+                  <label class="vehicle-option selected">
+                    <input type="radio" name="vehicle-type" value="Coupe/Sedan" checked>
+                    <span class="vehicle-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 17h14m-12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 13l2-5h14l2 5v4H3v-4z"/></svg>
+                      <span class="veh-title">Coupe / Sedan</span>
+                      <span class="veh-note">Standard Base</span>
+                    </span>
+                  </label>
+
+                  <label class="vehicle-option">
+                    <input type="radio" name="vehicle-type" value="Midsize SUV / Crossover">
+                    <span class="vehicle-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 17h14m-12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM2 11l3-6h14l3 6v6H2v-6z"/></svg>
+                      <span class="veh-title">Midsize SUV / Wagon</span>
+                      <span class="veh-note">+$30 Base</span>
+                    </span>
+                  </label>
+
+                  <label class="vehicle-option">
+                    <input type="radio" name="vehicle-type" value="Full Truck / 3-Row SUV">
+                    <span class="vehicle-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17h18m-14 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM2 8h12v9H2zm12 3h5l3 3v3h-8z"/></svg>
+                      <span class="veh-title">Truck / 3-Row SUV</span>
+                      <span class="veh-note">+$50 Base</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Step 2: Choose Service Packages -->
+              <div class="form-group">
+                <label class="form-label">2. Select Detailing Services</label>
+                <div class="services-checkbox-list">
+                  
+                  <label class="service-checkbox-label">
+                    <input type="checkbox" name="services" value="Exterior Wash & Decon ($89)" data-base-price="89" class="svc-calc-input" checked>
+                    <span class="chk-custom"></span>
+                    <span class="chk-details">
+                      <span class="chk-name">Exterior Wash &amp; Decon</span>
+                      <span class="chk-price">$89</span>
+                    </span>
+                  </label>
+
+                  <label class="service-checkbox-label">
+                    <input type="checkbox" name="services" value="Interior Precision Detailing ($149)" data-base-price="149" class="svc-calc-input" checked>
+                    <span class="chk-custom"></span>
+                    <span class="chk-details">
+                      <span class="chk-name">Interior Precision Detailing</span>
+                      <span class="chk-price">$149</span>
+                    </span>
+                  </label>
+
+                  <label class="service-checkbox-label">
+                    <input type="checkbox" name="services" value="Waxing & Ceramic Coating ($499)" data-base-price="499" class="svc-calc-input">
+                    <span class="chk-custom"></span>
+                    <span class="chk-details">
+                      <span class="chk-name">Waxing &amp; 9H Ceramic Coating (Multi-Stage Polish)</span>
+                      <span class="chk-price">$499</span>
+                    </span>
+                  </label>
+
+                  <label class="service-checkbox-label">
+                    <input type="checkbox" name="services" value="Engine Bay Cleaning ($119)" data-base-price="119" class="svc-calc-input">
+                    <span class="chk-custom"></span>
+                    <span class="chk-details">
+                      <span class="chk-name">Engine Bay Steam Clean &amp; Dress</span>
+                      <span class="chk-price">$119</span>
+                    </span>
+                  </label>
+
+                </div>
+              </div>
+
+              <!-- Step 3: Service Location Preference -->
+              <div class="form-group">
+                <label class="form-label">3. Service Preference</label>
+                <div class="radio-pill-group">
+                  <label class="radio-pill active">
+                    <input type="radio" name="location-type" value="Studio Drop-Off" checked>
+                    <span>Studio Bay Drop-Off (Climate Controlled)</span>
+                  </label>
+                  <label class="radio-pill">
+                    <input type="radio" name="location-type" value="Mobile Van Service">
+                    <span>Mobile Detailing Van (We Come To You)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Step 4: Contact & Timing Fields -->
+              <div class="form-row-2">
+                <div class="form-field">
+                  <label for="client-name" class="field-label">Your Full Name *</label>
+                  <input type="text" id="client-name" name="client-name" class="form-input" placeholder="e.g. Alex Mercer" required>
+                </div>
+                <div class="form-field">
+                  <label for="client-phone" class="field-label">Phone Number *</label>
+                  <input type="tel" id="client-phone" name="client-phone" class="form-input" placeholder="(555) 000-0000" required>
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-field">
+                  <label for="client-email" class="field-label">Email Address *</label>
+                  <input type="email" id="client-email" name="client-email" class="form-input" placeholder="alex@example.com" required>
+                </div>
+                <div class="form-field">
+                  <label for="client-date" class="field-label">Preferred Date *</label>
+                  <input type="date" id="client-date" name="client-date" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="client-notes" class="field-label">Vehicle Make, Model &amp; Any Special Requests</label>
+                <textarea id="client-notes" name="client-notes" class="form-textarea" rows="3" placeholder="e.g. 2023 Porsche 911 GT3 in Agate Grey. Pet hair removal and ceramic coat hood."></textarea>
+              </div>
+
+              <!-- Live Estimate Calculation Footer -->
+              <div class="estimate-box">
+                <div class="estimate-breakdown">
+                  <span class="est-label">Estimated Package Total:</span>
+                  <span class="est-sub">Transparent pricing &bull; Final quote confirmed on site</span>
+                </div>
+                <div class="est-amount" id="live-total-estimate">$238</div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-booking-btn">
+                <span class="btn-text">Confirm Booking Request</span>
+                <svg class="btn-arrow" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <p class="form-disclaimer">
+                🔒 No credit card required now. We will call or text to finalize your appointment time.
+              </p>
+
+            </form>
+
+            <!-- Success Confirmation State (Hidden initially) -->
+            <div id="booking-success-message" class="booking-success hidden">
+              <div class="success-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <h3 class="success-title">Your Detailing Session Is Requested!</h3>
+              <p class="success-desc">
+                Thank you, <span id="conf-client-name" class="conf-highlight">Driver</span>! Our concierge team will reach out at <span id="conf-client-phone" class="conf-highlight"></span> shortly to confirm your booking date.
+              </p>
+              <div class="success-summary" id="conf-summary-box">
+                <!-- Injected via JS -->
+              </div>
+              <button type="button" class="btn btn-secondary" id="book-another-btn">Submit Another Vehicle</button>
+            </div>
+
+          </div>
+
+          <!-- Contact Info & Studio Information Card -->
+          <div class="contact-info-column">
+            
+            <!-- Quick Call Direct Card -->
+            <div class="info-card glass-panel direct-call-card">
+              <div class="card-icon-round pulse-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <span class="info-label">Direct Concierge Phone</span>
+                <a href="tel:5557283382" class="info-phone-link">(555) 728-3382</a>
+                <p class="info-subtext">Call or text for immediate same-day opening availability.</p>
+              </div>
+            </div>
+
+            <!-- Studio Location & Service Area -->
+            <div class="info-card glass-panel">
+              <div class="card-icon-round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <span class="info-label">Studio Bay Location</span>
+                <p class="info-strong">842 Detailing Way, Suite 100</p>
+                <p class="info-strong-sub">Metro Auto District &bull; Heated &amp; Air-Filtered Bay</p>
+                <div class="service-area-pill">
+                  <span class="dot-blue"></span>
+                  <span><strong>Mobile Unit Service Area:</strong> 35-mile radius covering North, West &amp; Central Metro</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Operating Hours -->
+            <div class="info-card glass-panel">
+              <div class="card-icon-round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <span class="info-label">Hours of Operation</span>
+                <div class="hours-list">
+                  <div class="hour-row">
+                    <span>Monday &ndash; Friday:</span>
+                    <span class="hour-time">7:30 AM &ndash; 7:00 PM</span>
+                  </div>
+                  <div class="hour-row">
+                    <span>Saturday:</span>
+                    <span class="hour-time">8:00 AM &ndash; 6:00 PM</span>
+                  </div>
+                  <div class="hour-row">
+                    <span>Sunday:</span>
+                    <span class="hour-time">By Private Appointment Only</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Customer Assurance Badges -->
+            <div class="assurance-card glass-panel">
+              <h4>The [Business Name] Guarantee</h4>
+              <div class="assurance-bullets">
+                <div class="assure-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>100% Satisfaction or Free Spot Correction</span>
+                </div>
+                <div class="assure-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Insured Against All Paint &amp; Wheel Incidents</span>
+                </div>
+                <div class="assure-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Only pH-Neutral, Deionized Pure Water Used</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-text">
+            <span class="brand-title"><span class="highlight">[BUSINESS NAME]</span> AUTO LAB</span>
+            <p class="footer-tagline">Restoring the emotional spark of an immaculate vehicle. Premium exterior foam washes, interior restoration, and high-gloss 9H ceramic coatings.</p>
+          </div>
+        </div>
+
+        <div class="footer-links-group">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Snow Foam Hand Wash</a></li>
+            <li><a href="#services">Interior Steam Detailing</a></li>
+            <li><a href="#services">Paint Swirl Correction</a></li>
+            <li><a href="#services">9H Ceramic Shield</a></li>
+            <li><a href="#services">Engine Bay Cleanse</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-group">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#transformation">Before &amp; After Showcase</a></li>
+            <li><a href="#experience">The Obsidian Process</a></li>
+            <li><a href="#about">About Our Detailers</a></li>
+            <li><a href="#contact">Schedule Appointment</a></li>
+            <li><a href="tel:5557283382">Call (555) 728-3382</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter">
+          <h5>Seasonal Car Care Tips</h5>
+          <p>Get quarterly reminders for paint sealant, winter road salt defense, and exclusive VIP member promotions.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you! You are subscribed to [Business Name] seasonal detailing guides.');">
+            <input type="email" placeholder="Enter your email" class="newsletter-input" required>
+            <button type="submit" class="btn btn-primary btn-sm">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> [Business Name] Auto Lab. All rights reserved. Designed for automotive perfection.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <span>&bull;</span>
+          <a href="#">Terms of Service</a>
+          <span>&bull;</span>
+          <a href="#">Ceramic Warranty Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Call CTA for Mobile -->
+  <div class="floating-quick-bar" id="mobile-floating-bar">
+    <a href="tel:5557283382" class="float-btn call-float">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Call Now</span>
+    </a>
+    <a href="#contact" class="float-btn book-float">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Book Session</span>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
